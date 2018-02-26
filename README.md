@@ -4,7 +4,7 @@ Code for Mini Sumo competition, IEEE SAC Region 2 2018
 ## Dependencies
 1. EncoderPittMicromouse: https://github.com/Pitt-RAS/Encoder
 ## TODO
-1. Code for the motor drivers
-1. Hook motor drivers to be directly controlled by the IR sensors
-1. ???
-1. Win the competition
+[ ] Create functional process to control motor drive and breaking
+[ ] Implement encoder library to derive speed from motors during operation
+[ ] Implement logic for ring boundaries; i.e. when we reach the end of the circle, reverse
+[ ] Implement logic for edge-case scenarios; i.e. the robot gets stuck, our attack is ineffective
