@@ -1,6 +1,7 @@
 #include "Motor.h"
 /*
- * Creating a motor instantiates four integers, *and that is all*
+ * Creating a motor instantiates four integers, *and that is all*, besides for 
+ * the functions that move the motors.
  * in1, in2 -> digital output pin connecting to (A/B)IN(1/2) of the driver 
  * pwm -> analog output pin connecting to PWM(A/B)
  * stby -> digital output bridged to standby of motor driver
