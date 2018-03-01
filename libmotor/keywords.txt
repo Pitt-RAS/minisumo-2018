@@ -1,0 +1,5 @@
+Motor KEYWORD1
+clockwise KEYWORD2
+anticlockwise KEYWORD2
+short_brake KEYWORD2
+cold_stop KEYWORD2
