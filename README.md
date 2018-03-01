@@ -9,7 +9,7 @@ Code for Mini Sumo competition, IEEE SAC Region 2 2018
 - [x] Create functional process to control motor drive and breaking
   - [x] Get the motors to stop spinning when we want them to
   - [ ] Figure out what short braking is
-  - [ ] Implement short braking
+    - [ ] Implement short braking
 - [ ] Implement encoder library to derive speed from motors during operation
 - [ ] Implement logic for ring boundaries; i.e. when we reach the end of the circle, reverse
 - [ ] Implement offensive strategies
