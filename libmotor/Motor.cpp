@@ -34,6 +34,8 @@ void Motor::anticlockwise( int pwmv ){
 }
 /*
  * Don't use this, we don't know what it does yet.
+ * Important: the slower a motor moves, the less braking 
+ * torque available. 
  */
 void Motor::short_brake( int pwmv ){
   digitalWrite( in1, HIGH );
@@ -44,7 +46,7 @@ void Motor::short_brake( int pwmv ){
 /*
  * Don't use this, we don't know what it does yet.
  */
-void Motor::cold_stop( int pwmv ){
+void Motor::cold_stop( ){
   digitalWrite( in1, HIGH );
   digitalWrite( in2, HIGH );
   analogWrite( pwm, 0 );
