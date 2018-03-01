@@ -35,7 +35,8 @@ void Motor::anticlockwise( int pwmv ){
 /*
  * Don't use this, we don't know what it does yet.
  * Important: the slower a motor moves, the less braking 
- * torque available. 
+ * torque available. StackOverflow electronics suggests this is a method of 
+ * braking involving short-circuiting. 
  */
 void Motor::short_brake( int pwmv ){
   digitalWrite( in1, HIGH );
@@ -44,7 +45,8 @@ void Motor::short_brake( int pwmv ){
   digitalWrite( stby, HIGH );    
 }
 /*
- * Don't use this, we don't know what it does yet.
+ * Don't use this, we don't know what it does yet. Although it would probably 
+ * suggest that this cuts power to the motor. 
  */
 void Motor::cold_stop( ){
   digitalWrite( in1, HIGH );
