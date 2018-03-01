@@ -5,7 +5,8 @@ and indents are two *spaces.* The horizontal character limit is 80, which is ISO
 Objects are declared on their own lines, primitive types can be done in groups. Functions are done in C style, *not* in 
 Java's satanist camelcase.
 A function will look similar to this:
-`int x,y;
+```cpp
+int x,y;
 Robot* robot = new Robot( );
 /*
  * Takes params x, y, and if x dne 0, does the thing with y, 
@@ -20,4 +21,5 @@ void foobar( int x, int y ){
     robot -> kill( humans );
     return 0;
   }
-}`
+}
+```
