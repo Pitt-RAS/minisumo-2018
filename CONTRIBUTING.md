@@ -19,7 +19,6 @@ void foobar( int x, int y ){
   else {
     /* Set the robot to the proper mode */
     robot -> kill( humans );
-    return 0;
   }
 }
 ```
