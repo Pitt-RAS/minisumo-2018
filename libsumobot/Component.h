@@ -6,3 +6,4 @@ public:
   virtual int* get_pins( ) = 0;
   /*virtual void get_state( ) = 0;*/
 };
+#endif
