@@ -7,7 +7,7 @@ Motor *d = new Motor( 13, 14, 15, 16 );
 Sumobot *small_levi = new Sumobot( a, b, c, d );
 void setup() {
   // put your setup code here, to run once:
-
+  small_levi -> setup( );
 }
 
 void loop() {
