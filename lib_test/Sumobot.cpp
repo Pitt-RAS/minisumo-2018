@@ -21,6 +21,9 @@ void Sumobot::setup( ){
   this -> rb -> setup( );
 }
 int* Sumobot::get_pins( ){
-  int res[ 4 ];
+  int res[ 4 ] = {  this -> lf -> get_pins( ), 
+                    this -> rf -> get_pins( ), 
+                    this -> lb -> get_pins( ), 
+                    this -> rb -> get_pins( ) };
   return res;
 }
