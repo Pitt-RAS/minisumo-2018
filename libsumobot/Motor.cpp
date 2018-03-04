@@ -1,4 +1,7 @@
 #include "Motor.h"
+Motor::Motor( ){
+  
+}
 /*
  * Creating a motor instantiates four integers, *and that is all*, besides for 
  * the functions that move the motors.
@@ -7,10 +10,10 @@
  * stby -> digital output bridged to standby of motor driver
  */
 Motor::Motor( int in1, int in2, int pwm, int stby ){
-  this->in1 = in1;
-  this->in2 = in2;
-  this->pwm = pwm;
-  this->stby = stby;
+  this -> in1 = in1;
+  this -> in2 = in2;
+  this -> pwm = pwm;
+  this -> stby = stby;
 }
 /*
  * Activates the motor clockwise, where speed is reflected as an integer 'pwmv'
@@ -53,6 +56,12 @@ void Motor::cold_stop( ){
   digitalWrite( in2, HIGH );
   analogWrite( pwm, 0 );
   digitalWrite( stby, LOW );
+}
+void Motor::setup( ){
+  pinMode( in1, OUTPUT );
+  pinMode( in2, OUTPUT );
+  pinMode( pwm, OUTPUT );
+  pinMode( stby, OUTPUT );
 }
 /*
  * Returns an array containing the pins values as ints in order:
