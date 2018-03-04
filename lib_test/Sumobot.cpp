@@ -10,9 +10,15 @@ Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb ){
   this -> lb = lb;
   this -> rb = rb;
 }
+/*
+ * This function will rotate the robot deg degrees (not radians?) clockwise.
+ */
 void Sumobot::rotate_clockwise( int deg ){
   
 }
+/*
+ * This function will rotate the robot deg degrees anticlockwise.
+ */
 void Sumobot::rotate_anticlockwise( int deg ){
   
 }

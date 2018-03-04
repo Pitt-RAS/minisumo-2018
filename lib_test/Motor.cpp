@@ -57,6 +57,10 @@ void Motor::cold_stop( ){
   analogWrite( pwm, 0 );
   digitalWrite( stby, LOW );
 }
+/*
+ * setup function in coherence with Component class. Sets all four pins to 
+ * OUTPUT.
+ */ 
 void Motor::setup( ){
   pinMode( in1, OUTPUT );
   pinMode( in2, OUTPUT );
