@@ -17,7 +17,7 @@ void setup() {
 int tick = 0;
 int pwm = 25;
 void loop() {
-  small_levi -> test( );
+  small_levi -> test( tick );
   Serial.println( a -> get_hertz( ) );
   // put your main code here, to run repeatedly:
   /* small_levi -> get_pins( ); */
