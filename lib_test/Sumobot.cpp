@@ -1,4 +1,5 @@
 #include "Sumobot.h"
+#define TEST_PWM 25
 /*
  * Eventually we will need sensors, encoders, etc.
  * For now, this constructor initializes a robot based off its motors (pre-
@@ -21,6 +22,12 @@ void Sumobot::rotate_clockwise( int deg ){
  */
 void Sumobot::rotate_anticlockwise( int deg ){
   
+}
+void Sumobot::test( ){
+  this -> lf -> clockwise( TEST_PWM );
+  this -> rf -> clockwise( TEST_PWM );
+  this -> lb -> clockwise( TEST_PWM );
+  this -> rb -> clockwise( TEST_PWM );
 }
 /*
  * Component-required setup function. Triggers setup function of each motor.
