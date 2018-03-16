@@ -1,5 +1,4 @@
 #include "Sumobot.h"
-#define TEST_PWM 25
 /*
  * Eventually we will need sensors, encoders, etc.
  * For now, this constructor initializes a robot based off its motors (pre-

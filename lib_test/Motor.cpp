@@ -8,6 +8,7 @@ Motor::Motor( ){
  * in1, in2 -> digital output pin connecting to (A/B)IN(1/2) of the driver 
  * pwm -> analog output pin connecting to PWM(A/B)
  * stby -> digital output bridged to standby of motor driver
+ * encoder -> the an encoder object to account for this motor's hertz
  */
 Motor::Motor( int in1, int in2, int pwm, int stby, Encoder *encoder ){
   this -> in1 = in1;
@@ -55,8 +56,8 @@ void Motor::short_brake( int pwmv ){
   digitalWrite( stby, HIGH );    
 }
 /*
- * Don't use this, we don't know what it does yet. Although it would probably 
- * suggest that this cuts power to the motor. 
+ * Cuts power to the motor (no braking, expect the motor to continue to go
+ * for a little 
  */
 void Motor::stop( ){
   digitalWrite( in1, HIGH );
@@ -65,16 +66,18 @@ void Motor::stop( ){
   digitalWrite( stby, LOW );
 }
 /*
- * An extended call to this motor's encoder's get_hertz( ) function
+ * An extended call to this motor's encoder's get_hertz( ) function. -2 is 
+ * returned in the case that this motor doesn't have an encoder.
  */
 int Motor::get_hertz( ){
-  return this -> encoder -> get_hertz( );
+  return encoder ? this -> encoder -> get_hertz( ) : -2;
 }
 /*
- * An extended call to this motor's encoder's get_hertz( ) function
+ * An extended call to this motor's encoder's get_hertz( ) function. -2 is 
+ * returned in the case that this motor doesn't have an encoder.
  */
 int Motor::get_hertz( int timeout ){
-  return this -> encoder -> get_hertz( timeout );
+   return encoder ? this -> encoder -> get_hertz( timeout ): -2;
 }
 /*
  * setup function in coherence with Component class. Sets all four pins to 

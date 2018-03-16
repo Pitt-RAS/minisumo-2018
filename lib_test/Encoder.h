@@ -2,7 +2,7 @@
 #define ENCODER_H
 #include <Arduino.h>
 #include "Component.h"
-#define MICROSECONDS_PERIOD 500000
+#define MICROSECONDS_WAVE_SPEED 500000
 class Encoder: public Component{
 private:
   int in;
