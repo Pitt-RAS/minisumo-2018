@@ -51,7 +51,7 @@ void Motor::short_brake( int pwmv ){
  * Don't use this, we don't know what it does yet. Although it would probably 
  * suggest that this cuts power to the motor. 
  */
-void Motor::cold_stop( ){
+void Motor::stop( ){
   digitalWrite( in1, HIGH );
   digitalWrite( in2, HIGH );
   analogWrite( pwm, 0 );
