@@ -9,6 +9,13 @@ Motor::Motor( ){
  * pwm -> analog output pin connecting to PWM(A/B)
  * stby -> digital output bridged to standby of motor driver
  */
+Motor::Motor( int in1, int in2, int pwm, int stby, Encoder *encoder ){
+  this -> in1 = in1;
+  this -> in2 = in2;
+  this -> pwm = pwm;
+  this -> stby = stby;
+  this -> encoder = encoder;
+}
 Motor::Motor( int in1, int in2, int pwm, int stby ){
   this -> in1 = in1;
   this -> in2 = in2;
@@ -58,6 +65,18 @@ void Motor::stop( ){
   digitalWrite( stby, LOW );
 }
 /*
+ * An extended call to this motor's encoder's get_hertz( ) function
+ */
+int Motor::get_hertz( ){
+  return this -> encoder -> get_hertz( );
+}
+/*
+ * An extended call to this motor's encoder's get_hertz( ) function
+ */
+int Motor::get_hertz( int timeout ){
+  return this -> encoder -> get_hertz( timeout );
+}
+/*
  * setup function in coherence with Component class. Sets all four pins to 
  * OUTPUT.
  */ 
@@ -66,6 +85,7 @@ void Motor::setup( ){
   pinMode( in2, OUTPUT );
   pinMode( pwm, OUTPUT );
   pinMode( stby, OUTPUT );
+  if ( encoder ) encoder -> setup( );
 }
 /*
  * Returns an array containing the pins values as ints in order:
