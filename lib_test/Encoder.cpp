@@ -11,14 +11,18 @@ Encoder::Encoder( ){
 Encoder::Encoder( int pin ){
   this -> in = pin;
 }
+/*
+ * Gets the hertz based on applying the period = 1/T forumla to the Arduino
+ * standard function pulseIn
+ */
 int Encoder::get_hertz( ){
-  return MICROSECONDS_PERIOD/pulseIn( this -> in, LOW );
+  return MICROSECONDS_PERIOD/pulseIn( in, LOW );
 }
 /*
- * Abandons ship after timeout microseconds.
+ * Behaves exactly as get_hertz( ), but abandons ship after timeout microseconds
  */
 int Encoder::get_hertz( int timeout ){
-  return MICROSECONDS_PERIOD/pulseIn( this -> in, LOW, timeout );
+  return MICROSECONDS_PERIOD/pulseIn( in, LOW, timeout );
 }
 int* Encoder::get_pins( ){
   int res[ 1 ] = { in };
