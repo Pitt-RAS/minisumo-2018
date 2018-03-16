@@ -12,7 +12,7 @@ Encoder::Encoder( int pin ){
   this -> in = pin;
 }
 /*
- * Gets the hertz based on applying the period = 1/T forumla to the Arduino
+ * Gets the hertz based on applying the period = 1/T formula to the Arduino
  * standard function pulseIn
  */
 int Encoder::get_hertz( ){
