@@ -9,7 +9,7 @@ private:
 public:
   Encoder( );
   Encoder( int pin );
-  ~Encoder( );
+  ~Encoder( ) { };
   int get_hertz( );
   int get_hertz( int timeout );
   int* get_pins( );
