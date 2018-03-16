@@ -12,9 +12,9 @@ public:
   void clockwise( int pwmv );
   void anticlockwise( int pwmv );
   void short_brake( int pwmv );
-  void cold_stop( );
+  void stop( );
   int* get_pins( );
   void setup( );
-  /*int get_velocity( );*/
+  
 };
 #endif

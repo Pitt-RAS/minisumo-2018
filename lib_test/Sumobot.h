@@ -2,6 +2,7 @@
 #define SUMOBOT_H
 #include <Arduino.h>
 #include "Motor.h"
+#include "Encoder.h"
 #include "Component.h"
 class Sumobot: public Component {
 private:
