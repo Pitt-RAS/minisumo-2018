@@ -18,6 +18,6 @@ public:
   int* get_pins( );
   void rotate_clockwise( int deg );
   void rotate_anticlockwise( int deg );
-  void test( );
+  void test( int pwm );
 };
 #endif
