@@ -9,8 +9,8 @@ private:
   Encoder * encoder;
 public:
   Motor( );
-  Motor( int in1, int in2, int pwm, int stby );
-  Motor( int in1, int in2, int pwm, int stby, Encoder *encoder );
+  Motor( int in1, int in2, int pwm );
+  Motor( int in1, int in2, int pwm, Encoder *encoder );
   ~Motor( );
   void clockwise( int pwmv );
   void anticlockwise( int pwmv );

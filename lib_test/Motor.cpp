@@ -10,18 +10,16 @@ Motor::Motor( ){
  * stby -> digital output bridged to standby of motor driver
  * encoder -> the an encoder object to account for this motor's hertz
  */
-Motor::Motor( int in1, int in2, int pwm, int stby, Encoder *encoder ){
+Motor::Motor( int in1, int in2, int pwm, Encoder *encoder ){
   this -> in1 = in1;
   this -> in2 = in2;
   this -> pwm = pwm;
-  this -> stby = stby;
   this -> encoder = encoder;
 }
-Motor::Motor( int in1, int in2, int pwm, int stby ){
+Motor::Motor( int in1, int in2, int pwm ){
   this -> in1 = in1;
   this -> in2 = in2;
   this -> pwm = pwm;
-  this -> stby = stby;
 }
 /*
  * Activates the motor clockwise, where speed is reflected as an integer 'pwmv'
@@ -31,7 +29,6 @@ void Motor::clockwise( int pwmv ){
   digitalWrite( in1, HIGH );
   digitalWrite( in2, LOW );
   analogWrite( pwm, pwmv );
-  digitalWrite( stby, HIGH );
 }
 /*
  * Activates the motor anticlockwise, speed is reflected by 'pwmv', and integer 
@@ -41,7 +38,6 @@ void Motor::anticlockwise( int pwmv ){
   digitalWrite( in1, LOW );
   digitalWrite( in2, HIGH );
   analogWrite( pwm, pwmv );
-  digitalWrite( stby, HIGH );
 }
 /*
  * Don't use this, we don't know what it does yet.
@@ -52,8 +48,7 @@ void Motor::anticlockwise( int pwmv ){
 void Motor::short_brake( int pwmv ){
   digitalWrite( in1, HIGH );
   digitalWrite( in2, HIGH );
-  analogWrite( pwm, pwmv );
-  digitalWrite( stby, HIGH );    
+  analogWrite( pwm, pwmv );    
 }
 /*
  * Cuts power to the motor (no braking, expect the motor to continue to go
@@ -63,7 +58,6 @@ void Motor::stop( ){
   digitalWrite( in1, HIGH );
   digitalWrite( in2, HIGH );
   analogWrite( pwm, 0 );
-  digitalWrite( stby, LOW );
 }
 /*
  * An extended call to this motor's encoder's get_hertz( ) function. -2 is 
@@ -87,7 +81,6 @@ void Motor::setup( ){
   pinMode( in1, OUTPUT );
   pinMode( in2, OUTPUT );
   pinMode( pwm, OUTPUT );
-  pinMode( stby, OUTPUT );
   if ( encoder ) encoder -> setup( );
 }
 /*
@@ -95,6 +88,6 @@ void Motor::setup( ){
  * in1, in2, pwm, stby
  */
 int* Motor::get_pins( ){
-  int res[ 4 ] = { in1, in2, pwm, stby };
+  int res[ 3 ] = { in1, in2, pwm };
   return res;
 }
