@@ -5,7 +5,7 @@
 #include "Component.h"
 class Motor: public Component{
 private:
-  int in1, in2, pwm, stby;
+  int in1, in2, pwm;
   Encoder * encoder;
 public:
   Motor( );
