@@ -11,7 +11,7 @@ IRSensor::IRSensor( int send_pin, int recv_pin ){
  * Required setup function sets the pin modes for this component, and then
  * also sets the tonal frequency for the sending LED.
  */
-void setup( ){
+void IRSensor::setup( ){
   pinMode( recv_pin, INPUT_PULLUP );
   pinMode( send_pin, OUTPUT );
   tone( send_pin, TONE_VALUE );
@@ -22,6 +22,10 @@ void setup( ){
  * determining if the light was being reflected back to the sensor (true case)
  * or not (false case.)
  */
-bool is_obstructed( ){
+bool IRSensor::is_obstructed( ){
   return !digitalRead( recv_pin );
+}
+int* IRSensor::get_pins( ){
+  int res [ 2 ] = { this -> send_pin, this -> recv_pin };
+  return res;
 }
