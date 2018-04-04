@@ -7,7 +7,7 @@ class Encoder: public Component{
 private:
   int in;
 public:
-  Encoder( );
+  Encoder( ) {};
   Encoder( int pin );
   ~Encoder( ) { };
   int get_hertz( );
