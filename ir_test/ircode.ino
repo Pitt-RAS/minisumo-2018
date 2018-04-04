@@ -8,6 +8,7 @@ void setup()
   pinMode(irSensorPin, INPUT_PULLUP);
   pinMode(irLedPin, OUTPUT);
   Serial.begin(9600); 
+  /*tone( pin, frequency );*/
   tone(0, 48000);
 
 }
