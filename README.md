@@ -2,7 +2,7 @@
 Code for Mini Sumo competition, IEEE SAC Region 2 2018
 
 ## Dependencies
-1. libsumobot: it's in this repo
+~1. libsumobot: it's in this repo~
 ## TODO
 - [x] Create functional process to control motor drive and breaking
   - [x] Get the motors to stop spinning when we want them to

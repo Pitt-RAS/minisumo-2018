@@ -25,6 +25,9 @@ void IRSensor::setup( ){
 bool IRSensor::is_obstructed( ){
   return !digitalRead( recv_pin );
 }
+/*
+ * Compliance with Component.h
+ */
 int* IRSensor::get_pins( ){
   int res [ 2 ] = { this -> send_pin, this -> recv_pin };
   return res;
