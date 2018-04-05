@@ -52,14 +52,29 @@ void Sumobot::rotate_clockwise( int deg ){
 void Sumobot::rotate_anticlockwise( int deg ){
   
 }
-void Sumobot::left_side_clockwise( int pwm ){
+void Sumobot::forward( int pwm ){
+  this -> right_side_clockwise( pwm );
+  this -> left_side_anticlockwise( pwm );
+}
+void Sumobot::right_side_clockwise( int pwm ){
   this -> rf -> clockwise( pwm );
+  this -> rb -> clockwise( pwm );
+}
+void Sumobot::left_side_clockwise( int pwm ){
+  this -> lf -> clockwise( pwm );
+  this -> lb -> clockwise( pwm );
+}
+void Sumobot::right_side_anticlockwise( int pwm ){
+  this -> rf -> anticlockwise( pwm );
+  this -> rb -> anticlockwise( pwm );
+}
+void Sumobot::left_side_anticlockwise( int pwm ){
   this -> lf -> anticlockwise( pwm );
+  this -> lb -> anticlockwise( pwm );
 }
 void Sumobot::loop( int tick ){
   if ( c -> is_obstructed( ) ){
-    this -> rf -> clockwise( DEFAULT_PWM );
-    this -> lf -> anticlockwise( DEFAULT_PWM );
+    this -> forward( DEFAULT_PWM );
   }
 }
 void Sumobot::test( int tick ){

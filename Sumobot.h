@@ -13,8 +13,15 @@ class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
   PhotoSensor * plf, * prf, * plb, * prb;
+  
+  void right_side_clockwise( int pwm );
+  void left_side_clockwise( int pwm );
+  void right_side_anticlockwise( int pwm );
+  void left_side_anticlockwise( int pwm );
+  void forward( int pwm );
 public: 
   Motor * lf, * lb, * rf, * rb;
+  
   Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb );
   Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
           IRSensor * cr, IRSensor * c, IRSensor * cl, IRSensor * l );
