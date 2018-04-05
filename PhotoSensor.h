@@ -2,7 +2,7 @@
 #define PHOTOSENSOR_H
 #include <Arduino.h>
 #include "Component.h"
-#define BOUNDARY_SENSE_THRESHOLD 300
+#define BOUNDARY_SENSE_THRESHOLD 200
 class PhotoSensor: public Component{
 private: 
   int read_pin;

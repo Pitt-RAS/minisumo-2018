@@ -99,6 +99,16 @@ void Sumobot::setup( ){
   this -> rf -> setup( );
   this -> lb -> setup( );
   this -> rb -> setup( );
+  if ( this -> r ) this -> r -> setup( );
+  if ( this -> cr) this -> cr -> setup( );
+  if ( this -> c) this -> c -> setup( );
+  if ( this -> cl ) this -> cl -> setup( );
+  if ( this -> l) this -> l -> setup( );
+  if ( this -> plf ) this -> plf -> setup( );
+  if ( this -> prf ) this -> prf -> setup( );
+  if ( this -> plb ) this -> plb -> setup( );
+  if ( this -> prb ) this -> prb -> setup( );
+  
 }
 /*
  * Returns an array containing a pointer to an array for each motor. The 
