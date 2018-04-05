@@ -103,7 +103,7 @@ void Sumobot::setup( ){
   if ( this -> cr) this -> cr -> setup( );
   if ( this -> c) this -> c -> setup( );
   if ( this -> cl ) this -> cl -> setup( );
-  if ( this -> l) this -> l -> setup( );
+  if ( this -> l ) this -> l -> setup( );
   if ( this -> plf ) this -> plf -> setup( );
   if ( this -> prf ) this -> prf -> setup( );
   if ( this -> plb ) this -> plb -> setup( );
@@ -116,9 +116,6 @@ void Sumobot::setup( ){
  * order ofL lf, rf, lb, rb.
  */
 int* Sumobot::get_pins( ){
-  int res[ 4 ] = {  this -> lf -> get_pins( ), 
-                    this -> rf -> get_pins( ), 
-                    this -> lb -> get_pins( ), 
-                    this -> rb -> get_pins( ) };
+  int res[ 4 ] = {  0, 0, 0, 0 };
   return res;
 }
