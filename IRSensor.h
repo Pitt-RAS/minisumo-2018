@@ -1,11 +1,12 @@
 #ifndef IRSENSOR_H
 #define IRSENSOR_H
 #include <Arduino.h>
-#include <Component.h>
+#include "Component.h"
 #define TONE_VALUE 48000
 class IRSensor: public Component{
-public:
+private:
   int send_pin, recv_pin;
+public:
   IRSensor( );
   IRSensor( int send_pin, int recv_pin );
   ~IRSensor( ){};
@@ -13,5 +14,5 @@ public:
   bool is_obstructed( );
   void setup( );
   int* get_pins( );
-}
+};
 #endif

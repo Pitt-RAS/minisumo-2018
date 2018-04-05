@@ -5,6 +5,7 @@
 #include "Encoder.h"
 #include "Component.h"
 #include "IRSensor.h"
+#include "PhotoSensor.h"
 
 #define TEST_PWM 25
 class Sumobot: public Component {
