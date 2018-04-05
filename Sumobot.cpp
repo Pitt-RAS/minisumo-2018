@@ -10,6 +10,36 @@ Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb ){
   this -> lb = lb;
   this -> rb = rb;
 }
+Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
+          IRSensor * cr, IRSensor * c, IRSensor * cl, IRSensor * l){
+  this -> lf = lf;
+  this -> rf = rf;
+  this -> lb = lb;
+  this -> rb = rb;
+  this -> r = r;
+  this -> cr = cr;
+  this -> c = c;
+  this -> cl = l;
+  this -> l = l;
+}
+Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
+          IRSensor * cr, IRSensor * c, IRSensor * cl, IRSensor * l,
+          PhotoSensor * plf, PhotoSensor * prf, PhotoSensor * plb, 
+          PhotoSensor * prb ){
+  this -> lf = lf;
+  this -> rf = rf;
+  this -> lb = lb;
+  this -> rb = rb;
+  this -> r = r;
+  this -> cr = cr;
+  this -> c = c;
+  this -> cl = l;
+  this -> l = l;
+  this -> plf = plf;
+  this -> prf = prf;
+  this -> plb = plb;
+  this -> prb = prb;
+}
 /*
  * This function will rotate the robot deg degrees (not radians?) clockwise.
  */
@@ -21,6 +51,16 @@ void Sumobot::rotate_clockwise( int deg ){
  */
 void Sumobot::rotate_anticlockwise( int deg ){
   
+}
+void Sumobot::left_side_clockwise( int pwm ){
+  this -> rf -> clockwise( pwm );
+  this -> lf -> anticlockwise( pwm );
+}
+void Sumobot::loop( int tick ){
+  if ( c -> is_obstructed( ) ){
+    this -> rf -> clockwise( DEFAULT_PWM );
+    this -> lf -> anticlockwise( DEFAULT_PWM );
+  }
 }
 void Sumobot::test( int tick ){
   if ( tick < 1000 ){
