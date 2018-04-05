@@ -54,7 +54,7 @@ void Sumobot::rotate_anticlockwise( int deg ){
 }
 void Sumobot::forward( int pwm ){
   this -> right_side_clockwise( pwm );
-  this -> left_side_anticlockwise( pwm );
+  this -> left_side_clockwise( pwm );
 }
 void Sumobot::right_side_clockwise( int pwm ){
   this -> rf -> clockwise( pwm );
