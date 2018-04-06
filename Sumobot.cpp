@@ -58,15 +58,17 @@ void Sumobot::backward( int pwm ){
  * Left rotation at PWM specified
  */
 void Sumobot::rotate_left( int pwm ){
-  this -> left_side_clockwise( pwm );
-  this -> right_side_anticlockwise( pwm );
+  this -> right_side_clockwise( pwm );
+  this -> left_side_anticlockwise( pwm );
+
 }
 /*
  * Right rotation at PWM specified
  */
 void Sumobot::rotate_right( int pwm ){
-  this -> right_side_clockwise( pwm );
-  this -> left_side_anticlockwise( pwm );
+  this -> right_side_anticlockwise( pwm );
+  this -> left_side_clockwise( pwm );
+  
 }
 /*
  * Set the right side motors to move clockwise @ PWM
@@ -114,15 +116,15 @@ bool Sumobot::within_boundary_rear( ){
  * The drive loop. This is where all the magic happens.
  */
 void Sumobot::loop( int tick ){
-  if ( this -> within_boundary_front( ) ){
-    if ( this -> within_boundary_rear( ) ){
+  if ( 1 ){
+    if ( 1 ){
       if ( this -> c -> is_obstructed( ) ){
         this -> forward( DEFAULT_PWM );
       }
-      if ( this -> cl -> is_obstructed( ) ){
+      if ( 0 ){
         this -> rotate_left( MICRO_ADJUST_PWM );
       }
-      if ( this -> cr -> is_obstructed( ) ){
+      if ( 0 ){
         this -> rotate_right( MICRO_ADJUST_PWM );
       }
       else if ( this -> r -> is_obstructed( ) ){
