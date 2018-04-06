@@ -8,15 +8,15 @@ int BIN1 = 13;
 int BIN2 = 22;
 int PWMB = 9;
 int IR_SEND_PIN = 0;
-int SENSOR_CENTER = 2;
-int SENSOR_CENTER_LEFT = -1;
-int SENSOR_CENTER_RIGHT = -1; 
-int SENSOR_RIGHT = -1;
-int SENSOR_LEFT = -1;
+int SENSOR_CENTER = 1;
+int SENSOR_CENTER_LEFT = 3;
+int SENSOR_CENTER_RIGHT = 2; 
+int SENSOR_RIGHT = 6;
+int SENSOR_LEFT = 5;
 int PHOTO_RECV_FR = A3;
-int PHOTO_RECV_FL = -1;
-int PHOTO_RECV_BR = -1;
-int PHOTO_RECV_BL = -1;
+int PHOTO_RECV_FL = A3;
+int PHOTO_RECV_BR = A0;
+int PHOTO_RECV_BL = A1;
 Encoder *c = new Encoder(  );
 Motor *a = new Motor( AIN1, AIN2, PWMA, c );
 Motor *b = new Motor( BIN1, BIN2, PWMB, c );
@@ -39,6 +39,14 @@ void setup() {
 }
 int tick = 0;
 void loop() {
+  Serial.print( "FRONT RIGHT: " );
+  Serial.print( pfr -> within_boundary( ) );
+  Serial.print( " FRONT LEFT: " );
+  Serial.print( pfl -> within_boundary( ) );
+  Serial.print( " BACK LEFT: " );
+  Serial.print( pbl -> within_boundary( ) );
+  Serial.print( " BACK RIGHT: " );
+  Serial.println( pbr -> within_boundary( ) );
   lobo -> loop( tick );
   tick++;
 }
