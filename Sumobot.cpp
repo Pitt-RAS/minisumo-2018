@@ -56,6 +56,18 @@ void Sumobot::forward( int pwm ){
   this -> right_side_clockwise( pwm );
   this -> left_side_clockwise( pwm );
 }
+void Sumobot::backward( int pwm ){
+    this -> right_side_anticlockwise( pwm );
+  this -> left_side_anticlockwise( pwm );
+}
+void Sumobot::rotate_left( int pwm ){
+  this -> left_side_clockwise( pwm );
+  this -> right_side_anticlockwise( pwm );
+}
+void Sumobot::rotate_right( int pwm ){
+  this -> right_side_clockwise( pwm );
+  this -> left_side_anticlockwise( pwm );
+}
 void Sumobot::right_side_clockwise( int pwm ){
   this -> rf -> clockwise( pwm );
   this -> rb -> clockwise( pwm );
@@ -72,10 +84,31 @@ void Sumobot::left_side_anticlockwise( int pwm ){
   this -> lf -> anticlockwise( pwm );
   this -> lb -> anticlockwise( pwm );
 }
+bool Sumobot::within_boundary_front( ){
+  return this -> plf -> within_boundary( ) && this -> prf -> within_boundary( );
+}
+bool Sumobot::within_boundary_rear( ){
+  return this -> plb -> within_boundary( ) && this -> prb -> within_boundary( );
+}
 void Sumobot::loop( int tick ){
-  if ( c -> is_obstructed( ) ){
-    this -> forward( DEFAULT_PWM );
+  if ( this -> within_boundary( ) ){
+    if ( this -> c -> is_obstructed( ) ){
+      this -> forward( DEFAULT_PWM );
+    }
+    if ( this -> lc -> is_obstructed( ) ){
+      this -> rotate_left( MICRO_ADJUST_PWM );
+    }
+    if ( this -> rc -> is_obstructed( ) ){
+      this -> rotate_right( MICRO_ADJUST_PWM );
+    }
+    else if ( this -> r -> is_obstructed( ) ){
+      this -> rotate_right( ROTATIONAL_PWM );
+    }
+    else if ( this -> l -> is_obstructed( ) ){
+      this -> rotate_left( ROTATIONAL_PWM );
+    }
   }
+  
 }
 void Sumobot::test( int tick ){
   if ( tick < 1000 ){

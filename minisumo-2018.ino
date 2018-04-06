@@ -23,7 +23,7 @@ void setup() {
 int tick = 0;
 int pwm = 128;
 void loop() {
-  lobo -> loop( tick );
+  //lobo -> loop( tick );
   Serial.println( ps -> within_boundary( ) ); 
   tick++;
 }

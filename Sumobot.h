@@ -9,6 +9,8 @@
 
 #define TEST_PWM 25
 #define DEFAULT_PWM 25
+#define ROTATIONAL_PWM 150
+#define MICRO_ADJUST_PWM 25
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
@@ -19,6 +21,10 @@ private:
   void right_side_anticlockwise( int pwm );
   void left_side_anticlockwise( int pwm );
   void forward( int pwm );
+  void backward( int pwm );
+  bool within_boundaries( );
+  bool within_boundary_front( );
+  bool within_boundary_rear( );
 public: 
   Motor * lf, * lb, * rf, * rb;
   
@@ -36,5 +42,7 @@ public:
   void rotate_anticlockwise( int deg );
   void test( int pwm );
   void loop( int tick );
+  void rotate_right( int pwm );
+  void rotate_left( int pwm );
 };
 #endif
