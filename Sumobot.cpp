@@ -140,6 +140,26 @@ void Sumobot::loop( int tick ){
   }
   
 }
+/*
+ * Short brake all motors.
+ */
+void Sumobot::short_all( ){
+  this -> lf -> short_brake( 0 );
+  this -> lb -> short_brake( 0 );
+  this -> rf -> short_brake( 0 );
+  this -> rb -> short_brake( 0 );
+}
+/*
+ * Gun the motors for JETTISON_RUN_DELAY miliseconds
+ */
+void Sumobot::jettison( ){
+  this -> forward( MAX_PWM );
+  delay( JETTISON_RUN_DELAY );
+  this -> short_all( );
+}
+/*
+ * Test function that goes back and forth.
+ */
 void Sumobot::test( int tick ){
   if ( tick < 1000 ){
     this -> lf -> clockwise( TEST_PWM );
@@ -172,13 +192,4 @@ void Sumobot::setup( ){
   if ( this -> plb ) this -> plb -> setup( );
   if ( this -> prb ) this -> prb -> setup( );
   
-}
-/*
- * Returns an array containing a pointer to an array for each motor. The 
- * arrays pointed to will contain the pins in use by that motor, in respective
- * order ofL lf, rf, lb, rb.
- */
-int* Sumobot::get_pins( ){
-  int res[ 4 ] = {  0, 0, 0, 0 };
-  return res;
 }
