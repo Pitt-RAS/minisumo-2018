@@ -10,6 +10,9 @@ Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb ){
   this -> lb = lb;
   this -> rb = rb;
 }
+/*
+ * Constructor sans-photo sensors.
+ */
 Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
           IRSensor * cr, IRSensor * c, IRSensor * cl, IRSensor * l){
   this -> lf = lf;
@@ -22,6 +25,9 @@ Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
   this -> cl = l;
   this -> l = l;
 }
+/*
+ * Super-constructor; this will be the one we use for the completed robot.
+ */
 Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
           IRSensor * cr, IRSensor * c, IRSensor * cl, IRSensor * l,
           PhotoSensor * plf, PhotoSensor * prf, PhotoSensor * plb, 
@@ -99,6 +105,20 @@ void Sumobot::left_side_anticlockwise( int pwm ){
   this -> lb -> anticlockwise( pwm );
 }
 /*
+ * Akin to bearing forward
+ */
+void Sumobot::bear_clockwise( int left_pwm, int right_pwm ){
+  this -> right_side_clockwise( left_pwm );
+  this -> left_side_clockwise( right_pwm );
+}
+/*
+ * Akin to bearing backwards
+ */
+void Sumobot::bear_anticlockwise( int left_pwm, int right_pwm ){
+  this -> right_side_anticlockwise( right_pwm );
+  this -> left_side_anticlockwise( left_pwm );
+}
+/*
  * Compares the front photo resistor sensors, returns true if both are within
  * bounds
  */
@@ -139,12 +159,14 @@ void Sumobot::loop( int tick ){
     else if ( this -> l -> is_obstructed( ) ){
       this -> rotate_left( ROTATIONAL_PWM );
     }
-  
+    else {
+      this -> short_all( );
+    }
   }
   else {
     this -> short_all( );
-    for (int i = 0; i <= 500 /*&& plb -> within_boundary( ) && prb -> 
-          within_boundary*/; i++ ){
+    delay( BRAKE_GRACE_DELAY );
+    for (int i = 0; i <= 300 /*&& this -> within_boundary_rear( )*/; i++ ){
       this -> backward( DEFAULT_PWM );
     }
   }
@@ -159,12 +181,13 @@ void Sumobot::short_all( ){
   this -> rb -> short_brake( 0 );
 }
 /*
- * Gun the motors for JETTISON_RUN_DELAY miliseconds
+ * Gun the motors for JETTISON_RUN_DELAY milliseconds
  */
 void Sumobot::jettison( ){
   this -> backward( MAX_PWM );
   delay( JETTISON_RUN_DELAY );
   this -> short_all( );
+  delay( BRAKE_GRACE_DELAY );
 }
 /*
  * Test function that goes back and forth.
@@ -184,7 +207,8 @@ void Sumobot::test( int tick ){
   }
 }
 /*
- * Component-required setup function. Triggers setup function of each motor.
+ * Component-required setup function. Triggers setup function of each motor and
+ * subsequent components.
  */
 void Sumobot::setup( ){
   this -> lf -> setup( );

@@ -41,7 +41,9 @@ void setup() {
 }
 int tick = 0;
 void loop() {
-  //Serial.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+  /* So apparently commenting out these print statements ensures nothing else
+   * will print?
+   */
   Serial.print( "FRONT RIGHT: " );
   Serial.print( analogRead( PHOTO_RECV_FR ) );
   Serial.print( " " );
@@ -70,5 +72,5 @@ void loop() {
   Serial.print( " LEFTMOST: ");
   Serial.println( left -> is_obstructed( ) );
   lobo -> loop( tick );
-  //b -> clockwise( 255 );
+
 }

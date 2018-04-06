@@ -8,11 +8,12 @@
 #include "PhotoSensor.h"
 
 #define TEST_PWM 25
-#define DEFAULT_PWM 100
-#define ROTATIONAL_PWM 150
+#define DEFAULT_PWM 150
+#define ROTATIONAL_PWM 100
 #define MICRO_ADJUST_PWM 50
 #define MAX_PWM 255
 #define JETTISON_RUN_DELAY 100
+#define BRAKE_GRACE_DELAY 50
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
@@ -30,6 +31,8 @@ private:
   void rotate_right( int pwm );
   void rotate_left( int pwm );
   void short_all( );
+  void bear_clockwise( int left_pwm, int right_pwm );
+  void bear_anticlockwise( int left_pwm, int right_pwm );
 public: 
   Motor * lf, * lb, * rf, * rb;
   
