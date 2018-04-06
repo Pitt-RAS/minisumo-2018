@@ -10,7 +10,7 @@
 #define TEST_PWM 25
 #define DEFAULT_PWM 100
 #define ROTATIONAL_PWM 150
-#define MICRO_ADJUST_PWM 25
+#define MICRO_ADJUST_PWM 50
 #define MAX_PWM 255
 #define JETTISON_RUN_DELAY 100
 class Sumobot: public Component {

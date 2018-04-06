@@ -116,31 +116,38 @@ bool Sumobot::within_boundary_rear( ){
  * The drive loop. This is where all the magic happens.
  */
 void Sumobot::loop( int tick ){
-  if ( 1 ){
-    if ( 1 ){
-      if ( this -> c -> is_obstructed( ) ){
-        this -> forward( DEFAULT_PWM );
-      }
-      if ( 0 ){
-        this -> rotate_left( MICRO_ADJUST_PWM );
-      }
-      if ( 0 ){
-        this -> rotate_right( MICRO_ADJUST_PWM );
-      }
-      else if ( this -> r -> is_obstructed( ) ){
-        this -> rotate_right( ROTATIONAL_PWM );
-      }
-      else if ( this -> l -> is_obstructed( ) ){
-        this -> rotate_left( ROTATIONAL_PWM );
-      }
+  /*If the front photo sensors report that we are in bounds*/
+  if ( 1 ){    
+    /*If the center, (center left, and center right) sensors are obstructed*/
+    if ( this -> c -> is_obstructed( ) && ( this -> cl - > is_obstructed( ) 
+          && this -> cr -> is_obstructed( ) ) ){
+      this -> forward( DEFAULT_PWM );
     }
+    /*Just center and center left*/
+    else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
+      this -> rotate_left( MICRO_ADJUST_PWM );
+    }
+    /*Just the center and center right*/
+    else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
+      this -> rotate_right( MICRO_ADJUST_PWM );
+    }
+    /*If the rightmost sensor is obstructed*/
+    else if ( this -> r -> is_obstructed( ) ){
+      this -> rotate_right( ROTATIONAL_PWM );
+    }
+    /*If the leftmost sensor is obstructed*/
+    else if ( this -> l -> is_obstructed( ) ){
+      this -> rotate_left( ROTATIONAL_PWM );
+    }
+  
   }
   else {
-    for (int i = 0; i <= 500; i++ ){
+    this -> short_all( );
+    for (int i = 0; i <= 500 /*&& plb -> within_boundary( ) && prb -> 
+          within_boundary*/; i++ ){
       this -> backward( DEFAULT_PWM );
     }
   }
-  
 }
 /*
  * Short brake all motors.
