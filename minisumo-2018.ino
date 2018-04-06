@@ -35,18 +35,40 @@ Sumobot *lobo =
                 pfl, pfr, pbl, pbr );
 void setup() {
   lobo -> setup( );
+  
+  tone( 0, 48000 );
   Serial.begin(9600);
 }
 int tick = 0;
 void loop() {
+  //Serial.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
   Serial.print( "FRONT RIGHT: " );
+  Serial.print( analogRead( PHOTO_RECV_FR ) );
+  Serial.print( " " );
   Serial.print( pfr -> within_boundary( ) );
   Serial.print( " FRONT LEFT: " );
+  Serial.print( analogRead( PHOTO_RECV_FL ) );
+  Serial.print( " " );
   Serial.print( pfl -> within_boundary( ) );
   Serial.print( " BACK LEFT: " );
+  Serial.print( analogRead( PHOTO_RECV_BL ) );
+  Serial.print( " " );
   Serial.print( pbl -> within_boundary( ) );
   Serial.print( " BACK RIGHT: " );
-  Serial.println( pbr -> within_boundary( ) );
+  Serial.print( analogRead( PHOTO_RECV_BR ) );
+  Serial.print( " " );
+  Serial.print( pbr -> within_boundary( ) );
+
+  Serial.print( "RIGHTMOST: " );
+  Serial.print( right -> is_obstructed( ) );
+  Serial.print( " CENTER_RIGHT: " );
+  Serial.print( center_right -> is_obstructed( ) );
+  Serial.print( " CENTER:" );
+  Serial.print( center -> is_obstructed( ) );
+  Serial.print( " CENTER_LEFT:" );
+  Serial.print( center_left -> is_obstructed( ) );
+  Serial.print( " LEFTMOST: ");
+  Serial.println( left -> is_obstructed( ) );
   lobo -> loop( tick );
-  tick++;
+  //b -> clockwise( 255 );
 }
