@@ -153,7 +153,7 @@ void Sumobot::short_all( ){
  * Gun the motors for JETTISON_RUN_DELAY miliseconds
  */
 void Sumobot::jettison( ){
-  this -> forward( MAX_PWM );
+  this -> backward( MAX_PWM );
   delay( JETTISON_RUN_DELAY );
   this -> short_all( );
 }
