@@ -83,11 +83,4 @@ void Motor::setup( ){
   pinMode( pwm, OUTPUT );
   if ( encoder ) encoder -> setup( );
 }
-/*
- * Returns an array containing the pins values as ints in order:
- * in1, in2, pwm, stby
- */
-int* Motor::get_pins( ){
-  int res[ 3 ] = { in1, in2, pwm };
-  return res;
-}
+

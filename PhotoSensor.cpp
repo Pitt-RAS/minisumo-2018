@@ -25,10 +25,3 @@ int PhotoSensor::read( ){
 bool PhotoSensor::within_boundary( ){
   return analogRead( this -> read_pin) <= BOUNDARY_SENSE_THRESHOLD ;
 }
-/*
- * Component.h compliancy.
- */
-int* PhotoSensor::get_pins( ){
-  int res [ 1 ] = { this -> read_pin };
-  return res;
-}

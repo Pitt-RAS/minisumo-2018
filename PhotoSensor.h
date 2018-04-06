@@ -12,7 +12,6 @@ public:
   PhotoSensor( int read_pin );
   ~PhotoSensor( ) { };
   void setup( );
-  int* get_pins( );
   bool within_boundary( );
 };
 #endif

@@ -13,6 +13,5 @@ public:
   void send_pulse( );
   bool is_obstructed( );
   void setup( );
-  int* get_pins( );
 };
 #endif

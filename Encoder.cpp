@@ -22,13 +22,6 @@ int Encoder::get_hertz( ){
 int Encoder::get_hertz( int timeout ){
   return MICROSECONDS_WAVE_SPEED/pulseIn( in, LOW, timeout );
 }
-/*
- * Returns an array containing one integer, the pin in use.
- */
-int* Encoder::get_pins( ){
-  int res[ 1 ] = { in };
-  return res;
-}
 void Encoder::setup( ){
   pinMode( in, INPUT );
 }

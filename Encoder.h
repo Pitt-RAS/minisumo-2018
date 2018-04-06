@@ -12,7 +12,6 @@ public:
   ~Encoder( ) { };
   int get_hertz( );
   int get_hertz( int timeout );
-  int* get_pins( );
   void setup( );
 };
 #endif
