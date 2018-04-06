@@ -41,71 +41,101 @@ Sumobot::Sumobot( Motor * lf, Motor * rf, Motor * lb, Motor * rb, IRSensor * r,
   this -> prb = prb;
 }
 /*
- * This function will rotate the robot deg degrees (not radians?) clockwise.
+ * Sets drivetrain to move forward, with motors running at specified PWM
  */
-void Sumobot::rotate_clockwise( int deg ){
-  
-}
-/*
- * This function will rotate the robot deg degrees anticlockwise.
- */
-void Sumobot::rotate_anticlockwise( int deg ){
-  
-}
 void Sumobot::forward( int pwm ){
   this -> right_side_clockwise( pwm );
   this -> left_side_clockwise( pwm );
 }
+/*
+ * Sets drivetrain to move backward, with motors at specified PWM
+ */
 void Sumobot::backward( int pwm ){
-    this -> right_side_anticlockwise( pwm );
+  this -> right_side_anticlockwise( pwm );
   this -> left_side_anticlockwise( pwm );
 }
+/*
+ * Left rotation at PWM specified
+ */
 void Sumobot::rotate_left( int pwm ){
   this -> left_side_clockwise( pwm );
   this -> right_side_anticlockwise( pwm );
 }
+/*
+ * Right rotation at PWM specified
+ */
 void Sumobot::rotate_right( int pwm ){
   this -> right_side_clockwise( pwm );
   this -> left_side_anticlockwise( pwm );
 }
+/*
+ * Set the right side motors to move clockwise @ PWM
+ */
 void Sumobot::right_side_clockwise( int pwm ){
   this -> rf -> clockwise( pwm );
   this -> rb -> clockwise( pwm );
 }
+/*
+ * Set the left side motors to move clockwise @ PWM
+ */
 void Sumobot::left_side_clockwise( int pwm ){
   this -> lf -> clockwise( pwm );
   this -> lb -> clockwise( pwm );
 }
+/*
+ * Set the right side motors to move anticlockwise @ PWM
+ */
 void Sumobot::right_side_anticlockwise( int pwm ){
   this -> rf -> anticlockwise( pwm );
   this -> rb -> anticlockwise( pwm );
 }
+/*
+ * Set the left side motors to move anticlockwise @ PWM
+ */
 void Sumobot::left_side_anticlockwise( int pwm ){
   this -> lf -> anticlockwise( pwm );
   this -> lb -> anticlockwise( pwm );
 }
+/*
+ * Compares the front photo resistor sensors, returns true if both are within
+ * bounds
+ */
 bool Sumobot::within_boundary_front( ){
   return this -> plf -> within_boundary( ) && this -> prf -> within_boundary( );
 }
+/*
+ * Compares the rear photo resistor sensors, returns true if both are within 
+ * bounds
+ */
 bool Sumobot::within_boundary_rear( ){
   return this -> plb -> within_boundary( ) && this -> prb -> within_boundary( );
 }
+/*
+ * The drive loop. This is where all the magic happens.
+ */
 void Sumobot::loop( int tick ){
-  if ( this -> within_boundary( ) ){
-    if ( this -> c -> is_obstructed( ) ){
-      this -> forward( DEFAULT_PWM );
+  if ( this -> within_boundary_front( ) ){
+    if ( this -> within_boundary_rear( ) ){
+      if ( this -> c -> is_obstructed( ) ){
+        this -> forward( DEFAULT_PWM );
+      }
+      if ( this -> cl -> is_obstructed( ) ){
+        this -> rotate_left( MICRO_ADJUST_PWM );
+      }
+      if ( this -> cr -> is_obstructed( ) ){
+        this -> rotate_right( MICRO_ADJUST_PWM );
+      }
+      else if ( this -> r -> is_obstructed( ) ){
+        this -> rotate_right( ROTATIONAL_PWM );
+      }
+      else if ( this -> l -> is_obstructed( ) ){
+        this -> rotate_left( ROTATIONAL_PWM );
+      }
     }
-    if ( this -> lc -> is_obstructed( ) ){
-      this -> rotate_left( MICRO_ADJUST_PWM );
-    }
-    if ( this -> rc -> is_obstructed( ) ){
-      this -> rotate_right( MICRO_ADJUST_PWM );
-    }
-    else if ( this -> r -> is_obstructed( ) ){
-      this -> rotate_right( ROTATIONAL_PWM );
-    }
-    else if ( this -> l -> is_obstructed( ) ){
-      this -> rotate_left( ROTATIONAL_PWM );
+  }
+  else {
+    for (int i = 0; i <= 500; i++ ){
+      this -> backward( DEFAULT_PWM );
     }
   }
   

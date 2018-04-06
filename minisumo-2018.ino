@@ -9,21 +9,29 @@ int BIN2 = 22;
 int PWMB = 9;
 int IR_SEND_PIN = 0;
 int SENSOR_CENTER = 2;
+int SENSOR_CENTER_LEFT = -1;
+int SENSOR_CENTER_RIGHT = -1; 
+int SENSOR_RIGHT = -1;
+int SENSOR_LEFT = -1;
 int PHOTO_RECV = A3;
-Encoder *c = new Encoder( A_HERTZ_PIN );
+Encoder *c = new Encoder(  );
 Motor *a = new Motor( AIN1, AIN2, PWMA, c );
 Motor *b = new Motor( BIN1, BIN2, PWMB, c );
 IRSensor *center = new IRSensor( IR_SEND_PIN, SENSOR_CENTER );
+IRSensor *cener_left = new IRSensor( IR_SEND_PIN, SENSOR_CENTER_LEFT );
+IRSensor *center_right = new IRSensor( IR_SEND_PIN, SENSOR_CENTER_RIGHT );
+IRSensor *right = new IRSensor( IR_SEND_PIN, SENSOR_RIGHT );
+IRSensor *left = new IRSensor( IR_SEND_PIN, SENSOR_LEFT );
+
 PhotoSensor *ps = new PhotoSensor( PHOTO_RECV );
-Sumobot *lobo = new Sumobot( a, b, a, b, center, center, center, center, center);
+Sumobot *lobo = 
+  new Sumobot( a, b, a, b, right, center_right, center, center_left, left);
 void setup() {
   lobo -> setup( );
   Serial.begin(9600);
 }
 int tick = 0;
-int pwm = 128;
 void loop() {
-  //lobo -> loop( tick );
-  Serial.println( ps -> within_boundary( ) ); 
+  lobo -> loop( tick );
   tick++;
 }
