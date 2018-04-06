@@ -119,7 +119,7 @@ void Sumobot::loop( int tick ){
   /*If the front photo sensors report that we are in bounds*/
   if ( 1 ){    
     /*If the center, (center left, and center right) sensors are obstructed*/
-    if ( this -> c -> is_obstructed( ) && ( this -> cl - > is_obstructed( ) 
+    if ( this -> c -> is_obstructed( ) && ( this -> cl -> is_obstructed( ) 
           && this -> cr -> is_obstructed( ) ) ){
       this -> forward( DEFAULT_PWM );
     }
