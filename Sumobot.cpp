@@ -138,22 +138,23 @@ bool Sumobot::within_boundary_left( ){
 bool Sumobot::within_boundary_right( ){
   return this -> prb -> within_boundary( ) && this -> prf -> within_boundary( );
 }
-void Sumobot::timed_rotation_left( int pwm ){
+void Sumobot::timed_rotation_left( int pwm, int delay ){
   long startTime = millis( );
-  while ( millis( ) - startTime < ROTATE_TICK_DELAY 
-           && this -> within_boundaries() )
+  while ( millis( ) - startTime < delay 
+           && this -> within_boundary_left( ) )
     this -> rotate_left( pwm );
 }
-void Sumobot::timed_rotation_right( int pwm ){
+void Sumobot::timed_rotation_right( int pwm, int delay ){
   long startTime = millis( );
-  while ( millis() - startTime < ROTATE_TICK_DELAY  
-            && this -> within_boundaries() )
+  while ( millis() - startTime < delay  
+            && this -> within_boundary_right( ) )
     this -> rotate_right( pwm );
 }
 /*
  * The drive loop. This is where all the magic happens.
  */
 void Sumobot::loop( int tick ){
+/*    */
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){    
     /*If the center, (center left, and center right) sensors are obstructed*/
@@ -169,46 +170,34 @@ void Sumobot::loop( int tick ){
     /*Just center and center left*/
     else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
       this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
-      /*should bear left*/
     }
     /*Just the center and center right*/
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
-      /*should bear right*/
     }
     /*If the rightmost sensor is obstructed*/
     else if ( this -> r -> is_obstructed( ) ){
-      /* CHANGE OR BEFORE COMP*/
-      /*long startTime = millis( );
-      while ( millis() - startTime < ROTATE_TICK_DELAY  
-                  && this -> within_boundaries() )
-        this -> rotate_right( ROTATIONAL_PWM );*/
-      timed_rotation_right( ROTATIONAL_PWM );
+      timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     }
     /*If the leftmost sensor is obstructed*/
     else if ( this -> l -> is_obstructed( ) ){
-      /*CHANGE BEFORE COMP*/
-      /* long startTime = millis( );
-      while ( millis( ) - startTime < ROTATE_TICK_DELAY 
-                 && this -> within_boundaries() )
-        this -> rotate_left( ROTATIONAL_PWM ); */
-      timed_rotation_left( ROTATIONAL_PWM );
+      timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
       
     }
+/*     else if( within_boundary_left( ) && !within_boundary_right( ) ) 
+      timed_rotation_left( ROTATIONAL_PWM, SIDE_BOUNDARY_DELAY );
+    else if ( within_boundary_right( ) && !within_boundary_left( ) )
+      timed_rotation_right( ROTATIONAL_PWM, SIDE_BOUNDARY_DELAY ); */
     /*needs to go backwards*/
     else {
       long startTime = millis( );
       this -> forward( DEFAULT_PWM );
       while ( millis( ) - startTime < SEE_NOTHING_DELAY && 
-              this -> within_boundaries( ) );
-      this -> rotate_right( DEFAULT_PWM );
-    
+                                                this -> within_boundaries( ) );
+      //this -> rotate_left( DEFAULT_PWM );
+      this -> forward( 0 );
     }
   }
-  else if( within_boundary_left( ) && !within_boundary_right( ) ) 
-    timed_rotation_left( ROTATIONAL_PWM );
-  else if ( within_boundary_right( ) && !within_boundary_left( ) )
-      timed_rotation_right( ROTATIONAL_PWM );  
   else {
     this -> short_all( );
     delay( BRAKE_GRACE_DELAY );
