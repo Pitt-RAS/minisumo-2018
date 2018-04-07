@@ -190,10 +190,11 @@ void Sumobot::loop( int tick ){
       timed_rotation_right( ROTATIONAL_PWM, SIDE_BOUNDARY_DELAY ); */
     /*needs to go backwards*/
     else {
-      long startTime = millis( );
+/*       long startTime = millis( );
       this -> forward( DEFAULT_PWM );
       while ( millis( ) - startTime < SEE_NOTHING_DELAY && 
-                                                this -> within_boundaries( ) );
+                                                this -> within_boundaries( ) ); 
+                                                */
       //this -> rotate_left( DEFAULT_PWM );
       this -> forward( 0 );
     }

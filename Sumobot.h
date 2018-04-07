@@ -9,7 +9,7 @@
 
 #define TEST_PWM 250
 #define DEFAULT_PWM 125 //formerly 150
-#define ROTATIONAL_PWM 75 //formerly 100
+#define ROTATIONAL_PWM 255 //formerly 100
 #define MICRO_ADJUST_PWM 35 //formery 50
 #define MAX_PWM 255
 #define JETTISON_RUN_DELAY 100
