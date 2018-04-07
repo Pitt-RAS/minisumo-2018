@@ -9,6 +9,7 @@
 
 #define TEST_PWM 250
 #define DEFAULT_PWM 125 //formerly 150
+#define LAG_PWM 60
 #define ROTATIONAL_PWM 125 //formerly 100
 #define MICRO_ADJUST_PWM 35 //formery 50
 #define MAX_PWM 255
@@ -17,6 +18,7 @@
 #define BOUND_TICK_DELAY 250
 #define ROTATE_TICK_DELAY 115
 #define SEE_NOTHING_DELAY 50
+#define MICRO_ADJUST_DELAY 50
 #define SIDE_BOUNDARY_DELAY 750
 class Sumobot: public Component {
 private:

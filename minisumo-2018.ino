@@ -62,16 +62,16 @@ void loop() {
   delay( 5000 );
   lobo -> jettison( );
   while (1){
-    // Serial.print( " RIGHTMOST: " );
-    // Serial.print( right -> is_obstructed( ) );
-    // Serial.print( " CENTER_RIGHT: " );
-    // Serial.print( center_right -> is_obstructed( ) );
-    // Serial.print( " CENTER:" );
-    // Serial.print( center -> is_obstructed( ) );
-    // Serial.print( " CENTER_LEFT:" );
-    // Serial.print( center_left -> is_obstructed( ) );
-    // Serial.print( " LEFTMOST: ");
-    // Serial.println( left -> is_obstructed( ) );
+/*     Serial.print( " RIGHTMOST: " );
+    Serial.print( right -> is_obstructed( ) );
+    Serial.print( " CENTER_RIGHT: " );
+    Serial.print( center_right -> is_obstructed( ) );
+    Serial.print( " CENTER:" );
+    Serial.print( center -> is_obstructed( ) );
+    Serial.print( " CENTER_LEFT:" );
+    Serial.print( center_left -> is_obstructed( ) );
+    Serial.print( " LEFTMOST: ");
+    Serial.println( left -> is_obstructed( ) ); */
 
     lobo -> loop( tick );
   }

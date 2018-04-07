@@ -156,26 +156,27 @@ void Sumobot::timed_rotation_right( int pwm, int delay ){
 void Sumobot::loop( int tick ){
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){   
-    if ( this -> r -> is_obstructed( ) ){
+/*     if ( this -> r -> is_obstructed( ) ){
       timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
-    }
+    } */
     /*
      * It is refusing to see left...
      */
-    else if ( this -> l -> is_obstructed( ) ){
+    if ( this -> l -> is_obstructed( ) ){
       timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
-    }  
-    else if ( this -> cl -> is_obstructed( ) ){
-      this -> bear_anticlockwise( ROTATIONAL_PWM, DEFAULT_PWM );
+    } 
+    else if ( this -> cl -> is_obstructed( ) && 
+                      !this -> c -> is_obstructed( ) ){
+      this -> timed_rotation_left( ROTATIONAL_PWM, MICRO_ADJUST_DELAY );
     }
-    else if ( this -> cr -> is_obstructed( ) ){
-      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
+    else if ( this -> cr -> is_obstructed( ) && !this -> c -> is_obstructed( )){
+      this -> timed_rotation_right( ROTATIONAL_PWM, MICRO_ADJUST_DELAY );
     }
     else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
-      this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
+      this -> bear_clockwise( ROTATIONAL_PWM, LAG_PWM );
     }
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
-      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
+      this -> bear_clockwise( LAG_PWM, ROTATIONAL_PWM );
     }
     /*
      * This can be condensed into the statement below...
@@ -223,6 +224,11 @@ void Sumobot::jettison( ){
   delay( JETTISON_RUN_DELAY );
   this -> short_all( );
   delay( BRAKE_GRACE_DELAY );
+  while ( ! (this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
+          && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
+          && this -> l -> is_obstructed( ) ) ){
+    this -> rotate_right( ROTATIONAL_PWM );
+  }
 }
 /*
  * Test function that goes back and forth.
