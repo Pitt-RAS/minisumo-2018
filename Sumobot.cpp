@@ -154,12 +154,14 @@ void Sumobot::timed_rotation_right( int pwm, int delay ){
  * The drive loop. This is where all the magic happens.
  */
 void Sumobot::loop( int tick ){
-/*    */
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){   
     if ( this -> r -> is_obstructed( ) ){
       timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     }
+    /*
+     * It is refusing to see left...
+     */
     else if ( this -> l -> is_obstructed( ) ){
       timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     }  
@@ -175,6 +177,10 @@ void Sumobot::loop( int tick ){
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
     }
+    /*
+     * This can be condensed into the statement below...
+     * this is probably the most common scenario.
+     */
     else if ( this -> cl -> is_obstructed( ) && this -> c -> is_obstructed( ) &&
               this -> cr -> is_obstructed( ) ){
       this -> forward( DEFAULT_PWM );
