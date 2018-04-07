@@ -37,7 +37,7 @@ Sumobot *lobo =
 void setup() {
   lobo -> setup( );
   
-  tone( 0, 48000 );
+//  tone( 0, 48000 );
   Serial.begin(9600);
 }
 int tick = 0;
@@ -69,6 +69,9 @@ void loop() {
 //  Serial.print( center_left -> is_obstructed( ) );
 //  Serial.print( " LEFTMOST: ");
 //  Serial.println( left -> is_obstructed( ) );
-  lobo -> loop( tick );
+  delay( 5000 );
+  lobo -> jettison( );
+  while (1)
+    lobo -> loop( tick );
 
 }

@@ -139,8 +139,13 @@ void Sumobot::loop( int tick ){
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){    
     /*If the center, (center left, and center right) sensors are obstructed*/
-    if ( this -> c -> is_obstructed( ) /* && ( this -> cl -> is_obstructed( ) 
-          && this -> cr -> is_obstructed( ) ) */ ){
+    if ( this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( ) 
+          && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
+          && this -> l -> is_obstructed( ) ){
+      this -> forward( DEFAULT_PWM );
+    }
+    else if ( this -> cl -> is_obstructed( ) && this -> c -> is_obstructed( ) &&
+              this -> cr -> is_obstructed( ) ){
       this -> forward( DEFAULT_PWM );
     }
     /*Just center and center left*/
@@ -155,11 +160,20 @@ void Sumobot::loop( int tick ){
     }
     /*If the rightmost sensor is obstructed*/
     else if ( this -> r -> is_obstructed( ) ){
-      this -> rotate_right( ROTATIONAL_PWM );
+      /* CHANGE OR BEFORE COMP*/
+      long startTime = millis( );
+      while ( millis() - startTime < ROTATE_TICK_DELAY  
+                  && this -> within_boundaries() )
+        this -> rotate_right( ROTATIONAL_PWM );
     }
     /*If the leftmost sensor is obstructed*/
     else if ( this -> l -> is_obstructed( ) ){
-      this -> rotate_left( ROTATIONAL_PWM );
+      /*CHANGE BEFORE COMP*/
+      long startTime = millis( );
+      while ( millis( ) - startTime < ROTATE_TICK_DELAY 
+                 && this -> within_boundaries() )
+        this -> rotate_left( ROTATIONAL_PWM );
+      
     }
     else {
       this -> forward( 0 );
@@ -168,19 +182,13 @@ void Sumobot::loop( int tick ){
   else {
     this -> short_all( );
     delay( BRAKE_GRACE_DELAY );
-    for (int i = 0; i <= BRAKE_TICK_BOUND /*&& this -> within_boundary_rear( )*/; i++ ){
+    for (int i = 0; i <= BRAKE_TICK_BOUND && this -> within_boundary_rear( ); i++ ){
       this -> backward( DEFAULT_PWM );
     }
   }
-  /*Test code to debug center left sensing issues*/
-/*   if ( this -> cl -> is_obstructed( ) ){
-    Serial.println( "CENTER LEFT OBSTRUCTION" );
-    this -> short_all( );
-  }
-  else {
-    
-    this -> test( MAX_PWM );
-  } */
+}
+bool Sumobot::within_boundaries( ){
+  return this -> within_boundary_front( ) && this -> within_boundary_rear( );
 }
 /*
  * Short brake all motors.
