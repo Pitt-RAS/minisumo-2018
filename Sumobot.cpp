@@ -157,7 +157,7 @@ void Sumobot::loop( int tick ){
 /*    */
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){   
-    else if ( this -> r -> is_obstructed( ) ){
+    if ( this -> r -> is_obstructed( ) ){
       timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     }
     /*If the leftmost sensor is obstructed*/
@@ -165,6 +165,20 @@ void Sumobot::loop( int tick ){
       timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
       
     }  
+    else if ( this -> cl -> is_obstructed( ) ){
+      this -> bear_anticlockwise( ROTATIONAL_PWM, DEFAULT_PWM );
+    }
+    else if ( this -> cr -> is_obstructed( ) ){
+      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
+    }
+    /*Just center and center left*/
+/*     else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
+      this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
+    }
+    /*Just the center and center right
+    else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
+      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
+    } */
     /*If the center, (center left, and center right) sensors are obstructed*/
     if ( this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
           && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
@@ -174,20 +188,6 @@ void Sumobot::loop( int tick ){
     else if ( this -> cl -> is_obstructed( ) && this -> c -> is_obstructed( ) &&
               this -> cr -> is_obstructed( ) ){
       this -> forward( DEFAULT_PWM );
-    }
-    /*Just center and center left*/
-    else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
-      this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
-    }
-    /*Just the center and center right*/
-    else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
-      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
-    }
-    else if ( this -> cl -> is_obstructed( ) ){
-      this -> bear_anticlockwise( ROTATIONAL_PWM, DEFAULT_PWM );
-    }
-    else if ( this -> cr -> is_obstructed( ) ){
-      this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
     }
     /*If the rightmost sensor is obstructed*/
     else {
