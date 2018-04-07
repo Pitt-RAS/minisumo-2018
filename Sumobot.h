@@ -8,7 +8,7 @@
 #include "PhotoSensor.h"
 
 #define TEST_PWM 250
-#define DEFAULT_PWM 125 //formerly 150
+#define DEFAULT_PWM 100 //formerly 150
 #define ROTATIONAL_PWM 150 //formerly 100
 #define MICRO_ADJUST_PWM 35 //formery 50
 #define MAX_PWM 255
