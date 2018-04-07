@@ -205,19 +205,17 @@ void Sumobot::loop( int tick ){
     
     }
   }
+  else if( within_boundary_left( ) && !within_boundary_right( ) ) 
+    timed_rotation_left( ROTATIONAL_PWM );
+  else if ( within_boundary_right( ) && !within_boundary_left( ) )
+      timed_rotation_right( ROTATIONAL_PWM );  
   else {
-    if( within_boundary_left( ) && !within_boundary_right( ) ) 
-      timed_rotation_left( ROTATIONAL_PWM );
-    else if ( within_boundary_right( ) && !within_boundary_left( ) )
-      timed_rotation_right( ROTATIONAL_PWM );
-    else{
-      this -> short_all( );
-      delay( BRAKE_GRACE_DELAY );
-      long startTime = millis( );
-      while ( millis( ) - startTime < BOUND_TICK_DELAY && 
-              this -> within_boundary_rear( ) )
-        this -> backward( DEFAULT_PWM );
-    }
+    this -> short_all( );
+    delay( BRAKE_GRACE_DELAY );
+    long startTime = millis( );
+    while ( millis( ) - startTime < BOUND_TICK_DELAY && 
+            this -> within_boundary_rear( ) )
+      this -> backward( DEFAULT_PWM );
   }
 }
 bool Sumobot::within_boundaries( ){
