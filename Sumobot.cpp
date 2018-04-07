@@ -160,10 +160,8 @@ void Sumobot::loop( int tick ){
     if ( this -> r -> is_obstructed( ) ){
       timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     }
-    /*If the leftmost sensor is obstructed*/
     else if ( this -> l -> is_obstructed( ) ){
       timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
-      
     }  
     else if ( this -> cl -> is_obstructed( ) ){
       this -> bear_anticlockwise( ROTATIONAL_PWM, DEFAULT_PWM );
@@ -177,16 +175,15 @@ void Sumobot::loop( int tick ){
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
     }
-    if ( this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
-          && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
-          && this -> l -> is_obstructed( ) ){
-      this -> forward( DEFAULT_PWM );
-    }
     else if ( this -> cl -> is_obstructed( ) && this -> c -> is_obstructed( ) &&
               this -> cr -> is_obstructed( ) ){
       this -> forward( DEFAULT_PWM );
     }
-    /*If the rightmost sensor is obstructed*/
+    else if ( this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
+          && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
+          && this -> l -> is_obstructed( ) ){
+      this -> forward( DEFAULT_PWM );
+    }
     else {
       this -> forward( 0 );
     }
