@@ -192,7 +192,7 @@ void Sumobot::loop( int tick ){
       this -> forward( DEFAULT_PWM );
     }
     else {
-      this -> forward( 0 );
+      this -> forward( DO_NOTHING_PWM );
     }
   }
   else {
@@ -202,6 +202,7 @@ void Sumobot::loop( int tick ){
     while ( millis( ) - startTime < BOUND_TICK_DELAY && 
             this -> within_boundary_rear( ) )
       this -> backward( DEFAULT_PWM );
+    this -> timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
   }
 }
 bool Sumobot::within_boundaries( ){
