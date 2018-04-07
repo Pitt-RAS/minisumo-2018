@@ -2,7 +2,7 @@
 #define IRSENSOR_H
 #include <Arduino.h>
 #include "Component.h"
-#define TONE_VALUE 48000
+#define TONE_VALUE 44000
 class IRSensor: public Component{
 private:
   int send_pin, recv_pin;

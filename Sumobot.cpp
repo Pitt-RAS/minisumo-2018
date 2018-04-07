@@ -171,15 +171,12 @@ void Sumobot::loop( int tick ){
     else if ( this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
     }
-    /*Just center and center left*/
-/*     else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
+    else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
       this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
     }
-    /*Just the center and center right
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
-    } */
-    /*If the center, (center left, and center right) sensors are obstructed*/
+    }
     if ( this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
           && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
           && this -> l -> is_obstructed( ) ){
