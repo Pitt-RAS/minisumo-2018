@@ -225,7 +225,8 @@ void Sumobot::jettison( ){
   delay( JETTISON_RUN_DELAY );
   this -> short_all( );
   delay( BRAKE_GRACE_DELAY );
-  while ( ! (this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
+  long startTime = millis( );
+  while ( millis( ) - startTime < 500 && !(this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
           && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
           && this -> l -> is_obstructed( ) ) ){
     this -> rotate_right( ROTATIONAL_PWM );
