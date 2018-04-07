@@ -43,7 +43,7 @@ int tick = 0;
 void loop() {
   /* So apparently commenting out these print statements ensures nothing else
    * will print?
-   */
+   *//* 
   Serial.print( "FRONT RIGHT: " );
   Serial.print( analogRead( PHOTO_RECV_FR ) );
   Serial.print( " " );
@@ -59,9 +59,9 @@ void loop() {
   Serial.print( " BACK RIGHT: " );
   Serial.print( analogRead( PHOTO_RECV_BR ) );
   Serial.print( " " );
-  Serial.print( pbr -> within_boundary( ) );
+  Serial.println( pbr -> within_boundary( ) ); */
 
-  Serial.print( "RIGHTMOST: " );
+/*   Serial.print( "RIGHTMOST: " );
   Serial.print( right -> is_obstructed( ) );
   Serial.print( " CENTER_RIGHT: " );
   Serial.print( center_right -> is_obstructed( ) );
@@ -70,7 +70,7 @@ void loop() {
   Serial.print( " CENTER_LEFT:" );
   Serial.print( center_left -> is_obstructed( ) );
   Serial.print( " LEFTMOST: ");
-  Serial.println( left -> is_obstructed( ) );
+  Serial.println( left -> is_obstructed( ) );  */
   lobo -> loop( tick );
 
 }

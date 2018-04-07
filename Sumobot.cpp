@@ -137,21 +137,21 @@ bool Sumobot::within_boundary_rear( ){
  */
 void Sumobot::loop( int tick ){
   /*If the front photo sensors report that we are in bounds*/
-  if ( 1 ){    
+  if ( this -> within_boundary_front( ) ){    
     /*If the center, (center left, and center right) sensors are obstructed*/
-    if ( this -> c -> is_obstructed( ) && ( this -> cl -> is_obstructed( ) 
-          && this -> cr -> is_obstructed( ) ) ){
+    if ( this -> c -> is_obstructed( ) /* && ( this -> cl -> is_obstructed( ) 
+          && this -> cr -> is_obstructed( ) ) */ ){
       this -> forward( DEFAULT_PWM );
     }
     /*Just center and center left*/
     else if ( this -> c -> is_obstructed( ) && this -> cl -> is_obstructed( ) ){
       this -> bear_clockwise( ROTATIONAL_PWM, DEFAULT_PWM );
-      /* should bear left */
+      /*should bear left*/
     }
     /*Just the center and center right*/
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( DEFAULT_PWM, ROTATIONAL_PWM );
-      /* should bear right */
+      /*should bear right*/
     }
     /*If the rightmost sensor is obstructed*/
     else if ( this -> r -> is_obstructed( ) ){
@@ -162,25 +162,34 @@ void Sumobot::loop( int tick ){
       this -> rotate_left( ROTATIONAL_PWM );
     }
     else {
-      this -> short_all( );
+      this -> forward( 0 );
     }
   }
   else {
     this -> short_all( );
     delay( BRAKE_GRACE_DELAY );
-    for (int i = 0; i <= 300 /*&& this -> within_boundary_rear( )*/; i++ ){
+    for (int i = 0; i <= BRAKE_TICK_BOUND /*&& this -> within_boundary_rear( )*/; i++ ){
       this -> backward( DEFAULT_PWM );
     }
   }
+  /*Test code to debug center left sensing issues*/
+/*   if ( this -> cl -> is_obstructed( ) ){
+    Serial.println( "CENTER LEFT OBSTRUCTION" );
+    this -> short_all( );
+  }
+  else {
+    
+    this -> test( MAX_PWM );
+  } */
 }
 /*
  * Short brake all motors.
  */
 void Sumobot::short_all( ){
-  this -> lf -> short_brake( 0 );
-  this -> lb -> short_brake( 0 );
-  this -> rf -> short_brake( 0 );
-  this -> rb -> short_brake( 0 );
+  this -> lf -> short_brake( MAX_PWM );
+  this -> lb -> short_brake( MAX_PWM );
+  this -> rf -> short_brake( MAX_PWM );
+  this -> rb -> short_brake( MAX_PWM );
 }
 /*
  * Gun the motors for JETTISON_RUN_DELAY milliseconds

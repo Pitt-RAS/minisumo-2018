@@ -8,12 +8,13 @@
 #include "PhotoSensor.h"
 
 #define TEST_PWM 25
-#define DEFAULT_PWM 150
-#define ROTATIONAL_PWM 100
-#define MICRO_ADJUST_PWM 50
+#define DEFAULT_PWM 15
+#define ROTATIONAL_PWM 10
+#define MICRO_ADJUST_PWM 5
 #define MAX_PWM 255
 #define JETTISON_RUN_DELAY 100
 #define BRAKE_GRACE_DELAY 50
+#define BRAKE_TICK_BOUND 15000
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
