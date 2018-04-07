@@ -176,15 +176,16 @@ void Sumobot::loop( int tick ){
       
     }
     else {
-      this -> forward( 0 );
+      this -> rotate_right( DEFAULT_PWM );
     }
   }
   else {
     this -> short_all( );
     delay( BRAKE_GRACE_DELAY );
-    for (int i = 0; i <= BRAKE_TICK_BOUND && this -> within_boundary_rear( ); i++ ){
+    long startTime = millis( );
+    while ( millis( ) - startTime < BOUND_TICK_DELAY && 
+            this -> within_boundary_rear( ) )
       this -> backward( DEFAULT_PWM );
-    }
   }
 }
 bool Sumobot::within_boundaries( ){

@@ -14,8 +14,8 @@
 #define MAX_PWM 255
 #define JETTISON_RUN_DELAY 100
 #define BRAKE_GRACE_DELAY 50
-#define BRAKE_TICK_BOUND 90000
-#define ROTATE_TICK_DELAY 500
+#define BOUND_TICK_DELAY 250
+#define ROTATE_TICK_DELAY 250
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
