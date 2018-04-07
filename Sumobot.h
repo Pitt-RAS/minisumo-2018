@@ -16,6 +16,7 @@
 #define BRAKE_GRACE_DELAY 50
 #define BOUND_TICK_DELAY 250
 #define ROTATE_TICK_DELAY 250
+#define SEE_NOTHING_DELAY 100
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;
@@ -30,11 +31,15 @@ private:
   bool within_boundaries( );
   bool within_boundary_front( );
   bool within_boundary_rear( );
+  bool within_boundary_left( );
+  bool within_boundary_right( );
   void rotate_right( int pwm );
   void rotate_left( int pwm );
   void short_all( );
   void bear_clockwise( int left_pwm, int right_pwm );
   void bear_anticlockwise( int left_pwm, int right_pwm );
+  void timed_rotation_left( int pwm );
+  void timed_rotation_right( int pwm );
 public: 
   Motor * lf, * lb, * rf, * rb;
   

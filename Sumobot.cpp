@@ -132,6 +132,24 @@ bool Sumobot::within_boundary_front( ){
 bool Sumobot::within_boundary_rear( ){
   return this -> plb -> within_boundary( ) && this -> prb -> within_boundary( );
 }
+bool Sumobot::within_boundary_left( ){
+  return this -> plb -> within_boundary( ) && this -> plf -> within_boundary( );
+}
+bool Sumobot::within_boundary_right( ){
+  return this -> prb -> within_boundary( ) && this -> prf -> within_boundary( );
+}
+void Sumobot::timed_rotation_left( int pwm ){
+  long startTime = millis( );
+  while ( millis( ) - startTime < ROTATE_TICK_DELAY 
+           && this -> within_boundaries() )
+    this -> rotate_left( pwm );
+}
+void Sumobot::timed_rotation_right( int pwm ){
+  long startTime = millis( );
+  while ( millis() - startTime < ROTATE_TICK_DELAY  
+            && this -> within_boundaries() )
+    this -> rotate_right( pwm );
+}
 /*
  * The drive loop. This is where all the magic happens.
  */
@@ -161,31 +179,45 @@ void Sumobot::loop( int tick ){
     /*If the rightmost sensor is obstructed*/
     else if ( this -> r -> is_obstructed( ) ){
       /* CHANGE OR BEFORE COMP*/
-      long startTime = millis( );
+      /*long startTime = millis( );
       while ( millis() - startTime < ROTATE_TICK_DELAY  
                   && this -> within_boundaries() )
-        this -> rotate_right( ROTATIONAL_PWM );
+        this -> rotate_right( ROTATIONAL_PWM );*/
+      timed_rotation_right( ROTATIONAL_PWM );
     }
     /*If the leftmost sensor is obstructed*/
     else if ( this -> l -> is_obstructed( ) ){
       /*CHANGE BEFORE COMP*/
-      long startTime = millis( );
+      /* long startTime = millis( );
       while ( millis( ) - startTime < ROTATE_TICK_DELAY 
                  && this -> within_boundaries() )
-        this -> rotate_left( ROTATIONAL_PWM );
+        this -> rotate_left( ROTATIONAL_PWM ); */
+      timed_rotation_left( ROTATIONAL_PWM );
       
     }
+    /*needs to go backwards*/
     else {
+      long startTime = millis( );
+      this -> forward( DEFAULT_PWM );
+      while ( millis( ) - startTime < SEE_NOTHING_DELAY && 
+              this -> within_boundaries( ) );
       this -> rotate_right( DEFAULT_PWM );
+    
     }
   }
   else {
-    this -> short_all( );
-    delay( BRAKE_GRACE_DELAY );
-    long startTime = millis( );
-    while ( millis( ) - startTime < BOUND_TICK_DELAY && 
-            this -> within_boundary_rear( ) )
-      this -> backward( DEFAULT_PWM );
+    if( within_boundary_left( ) && !within_boundary_right( ) ) 
+      timed_rotation_left( ROTATIONAL_PWM );
+    else if ( within_boundary_right( ) && !within_boundary_left( ) )
+      timed_rotation_right( ROTATIONAL_PWM );
+    else{
+      this -> short_all( );
+      delay( BRAKE_GRACE_DELAY );
+      long startTime = millis( );
+      while ( millis( ) - startTime < BOUND_TICK_DELAY && 
+              this -> within_boundary_rear( ) )
+        this -> backward( DEFAULT_PWM );
+    }
   }
 }
 bool Sumobot::within_boundaries( ){
