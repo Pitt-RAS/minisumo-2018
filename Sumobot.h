@@ -8,20 +8,24 @@
 #include "PhotoSensor.h"
 
 #define TEST_PWM 250
-#define DEFAULT_PWM 125 //formerly 150
-#define 
-#define LAG_PWM 60
-#define ROTATIONAL_PWM 255 //formerly 100
-#define MICRO_ADJUST_PWM 35 //formery 50
-#define MAX_PWM 255
-#define DO_NOTHING_PWM 60
-#define JETTISON_RUN_DELAY 100
-#define BRAKE_GRACE_DELAY 50
-#define BOUND_TICK_DELAY 250
-#define ROTATE_TICK_DELAY 150
-#define SEE_NOTHING_DELAY 50
-#define MICRO_ADJUST_DELAY 50
-#define SIDE_BOUNDARY_DELAY 750
+#define DEFAULT_PWM 125 //the default forward and operating speed
+#define LAG_PWM 60 //when doing a bear_(anti)clockwise, this is the pwm the 
+                  //slower motors will take on
+#define ROTATIONAL_PWM 255 //pwm the robot rotates itself for
+#define MICRO_ADJUST_PWM 35 //fires motors for micro-adjustment for this pwm
+#define MAX_PWM 255 
+#define DO_NOTHING_PWM 60 //robot will assume this as default speed if it is
+                          //doing nothing/probing
+#define JETTISON_RUN_DELAY 100 //how long to fire the motors in millis for 
+                                //jettison
+#define BRAKE_GRACE_DELAY 50 //how long to let the short brake run for
+#define BOUND_TICK_DELAY 250 //how long to back up for after the boundary is 
+                            //reached
+#define ROTATE_TICK_DELAY 150 //how long in ms the robot should rotate for on 
+                              //leftmost and rightmost sensing
+#define SEE_NOTHING_DELAY 50 //deprecated
+#define MICRO_ADJUST_DELAY 50 //how long to run micro-adjustments
+#define SIDE_BOUNDARY_DELAY 750 //deprecated
 class Sumobot: public Component {
 private:
   IRSensor * r, * cr, * c, * cl, * l;

@@ -132,18 +132,33 @@ bool Sumobot::within_boundary_front( ){
 bool Sumobot::within_boundary_rear( ){
   return this -> plb -> within_boundary( ) && this -> prb -> within_boundary( );
 }
+/*
+ * Compares the left two photo resistors and returns true if they're within
+ */
 bool Sumobot::within_boundary_left( ){
   return this -> plb -> within_boundary( ) && this -> plf -> within_boundary( );
 }
+/*
+ * Compares right two photo resistors and returns true if they're within
+ */
 bool Sumobot::within_boundary_right( ){
   return this -> prb -> within_boundary( ) && this -> prf -> within_boundary( );
 }
+/*
+ * Does a left rotation at specified pwm for 'delay' milliseconds. This function
+ * will check the robot is within boundary on the left side, and stop if not.
+ */
 void Sumobot::timed_rotation_left( int pwm, int delay ){
   long startTime = millis( );
   while ( millis( ) - startTime < delay 
            && this -> within_boundary_left( ) )
     this -> rotate_left( pwm );
 }
+/*
+ * Does a right rotation at specified pwm for 'delay' milliseconds. This 
+ * function will check the robot is within boundary on the right side, and stop
+ * if not.
+ */
 void Sumobot::timed_rotation_right( int pwm, int delay ){
   long startTime = millis( );
   while ( millis() - startTime < delay  
@@ -151,17 +166,29 @@ void Sumobot::timed_rotation_right( int pwm, int delay ){
     this -> rotate_right( pwm );
 }
 /*
+ * Checks whether all photo resistors report that we are within boundaries.
+ */
+bool Sumobot::within_boundaries( ){
+  return this -> within_boundary_front( ) && this -> within_boundary_rear( );
+}
+/*
+ * Short brake all motors.
+ */
+void Sumobot::short_all( ){
+  this -> lf -> short_brake( MAX_PWM );
+  this -> lb -> short_brake( MAX_PWM );
+  this -> rf -> short_brake( MAX_PWM );
+  this -> rb -> short_brake( MAX_PWM );
+}
+/*
  * The drive loop. This is where all the magic happens.
  */
 void Sumobot::loop( int tick ){
   /*If the front photo sensors report that we are in bounds*/
   if ( this -> within_boundary_front( ) ){   
-/*     if ( this -> r -> is_obstructed( ) ){
+  /*if ( this -> r -> is_obstructed( ) ){
       timed_rotation_right( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     } */
-    /*
-     * It is refusing to see left...
-     */
     if ( this -> l -> is_obstructed( ) ){
       timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
     } 
@@ -178,10 +205,6 @@ void Sumobot::loop( int tick ){
     else if ( this -> c -> is_obstructed( ) && this -> cr -> is_obstructed( ) ){
       this -> bear_clockwise( LAG_PWM, ROTATIONAL_PWM );
     }
-    /*
-     * This can be condensed into the statement below...
-     * this is probably the most common scenario.
-     */
     else if ( this -> cl -> is_obstructed( ) && this -> c -> is_obstructed( ) &&
               this -> cr -> is_obstructed( ) ){
       this -> forward( DEFAULT_PWM );
@@ -198,24 +221,13 @@ void Sumobot::loop( int tick ){
   else {
     this -> short_all( );
     delay( BRAKE_GRACE_DELAY );
+    /* A timed back up*/
     long startTime = millis( );
     while ( millis( ) - startTime < BOUND_TICK_DELAY && 
             this -> within_boundary_rear( ) )
       this -> backward( DEFAULT_PWM );
     this -> timed_rotation_left( ROTATIONAL_PWM, ROTATE_TICK_DELAY );
   }
-}
-bool Sumobot::within_boundaries( ){
-  return this -> within_boundary_front( ) && this -> within_boundary_rear( );
-}
-/*
- * Short brake all motors.
- */
-void Sumobot::short_all( ){
-  this -> lf -> short_brake( MAX_PWM );
-  this -> lb -> short_brake( MAX_PWM );
-  this -> rf -> short_brake( MAX_PWM );
-  this -> rb -> short_brake( MAX_PWM );
 }
 /*
  * Gun the motors for JETTISON_RUN_DELAY milliseconds
@@ -226,8 +238,9 @@ void Sumobot::jettison( ){
   this -> short_all( );
   delay( BRAKE_GRACE_DELAY );
   long startTime = millis( );
-  while ( millis( ) - startTime < 500 && !(this -> c -> is_obstructed( ) &&  this -> cl -> is_obstructed( )
-          && this -> cr -> is_obstructed( ) && this -> l -> is_obstructed( ) 
+  while ( millis( ) - startTime < 500 && !(this -> c -> is_obstructed( ) 
+          && this -> cl -> is_obstructed( ) && this -> cr -> is_obstructed( ) 
+          && this -> l -> is_obstructed( ) 
           && this -> l -> is_obstructed( ) ) ){
     this -> rotate_right( ROTATIONAL_PWM );
   }
